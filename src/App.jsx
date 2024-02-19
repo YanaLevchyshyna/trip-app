@@ -1,13 +1,10 @@
 import './App.css';
+import Home from './components/Home/Home';
 
 function App() {
   return (
     <>
-      <h1>Trip App</h1>
-
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Home />
     </>
   );
 }
