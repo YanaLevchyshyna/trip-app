@@ -1,37 +1,46 @@
 import { useState, useEffect } from 'react';
-import { nanoid } from 'nanoid';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { getWeatherAPI } from '../../services/fetchApi';
 import Trips from '../Trips/Trips';
+import DailyForecast from '../DailyForecast/DailyForecast';
 
 const city = 'Kyiv';
 const startDate = '2024-02-20';
 const endDate = '2024-02-25';
 
 const Home = () => {
-  const [data, setData] = useState([]);
+  const [days, setDays] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  console.log('DATA', data);
+  console.log('DATA', days);
 
   useEffect(() => {
     setLoading(true);
 
-    getWeatherAPI
-      .getForecastFromTo(city, startDate, endDate)
-      .then((res) => {
-        console.log('Погодні дані для маршруту:', res);
-        if (res.length === 0) {
-          throw Error;
+    const fetchDays = async () => {
+      try {
+        const { days } = await getWeatherAPI.getForecastFromTo(
+          city,
+          startDate,
+          endDate
+        );
+        if (days.length === 0) {
+          toast.error('Sorry, something went wrong... Please try again!', {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+          return;
         }
-        setData(res);
-      })
-      .catch((error) => {
-        setError(true);
-        console.log(error);
-      })
-      .finally(() => setLoading(false));
+        setDays(days);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchDays();
   }, []);
 
   if (error) {
@@ -47,10 +56,10 @@ const Home = () => {
   }
   return (
     <div>
-      <Trips />
-      <ul>
-        <li>{data.address}</li>
-      </ul>
+      <main>
+        <Trips />
+        <DailyForecast />
+      </main>
     </div>
   );
 };

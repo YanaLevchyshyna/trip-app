@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { nanoid } from 'nanoid';
 
 import barcelonaImg from '../../assets/images/barcelona.jpeg';

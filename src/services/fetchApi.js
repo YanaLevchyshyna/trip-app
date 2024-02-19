@@ -9,8 +9,8 @@ const getForecastFromTo = async (city, date1, date2) => {
   try {
     const url = `${city}/${date1}/${date2}?unitGroup=metric&include=days`;
     const result = await axios.get(url, { params: { key: API_KEY } });
-    console.log('API Call Successful:', result);
-    console.log('Data Received:', result.data);
+    // console.log('RESULT ---> ', result);
+    // console.log('DATA result --->', result.data);
     return result.data;
   } catch (error) {
     throw new Error(error.response.data.message);
