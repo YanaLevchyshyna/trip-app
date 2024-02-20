@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import { getWeatherAPI } from '../../services/fetchApi';
 import Trips from '../Trips/Trips';
@@ -11,43 +9,38 @@ const startDate = '2024-02-20';
 const endDate = '2024-02-25';
 
 const Home = () => {
-  const [days, setDays] = useState([]);
+  const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  console.log('DATA', days);
+  console.log('DATA', weatherData);
 
   useEffect(() => {
     setLoading(true);
 
-    const fetchDays = async () => {
-      try {
-        const { days } = await getWeatherAPI.getForecastFromTo(
-          city,
-          startDate,
-          endDate
-        );
-        if (days.length === 0) {
-          toast.error('Sorry, something went wrong... Please try again!', {
-            position: toast.POSITION.TOP_RIGHT,
-          });
-          return;
+    getWeatherAPI
+      .getForecastFromTo(city, startDate, endDate)
+      .then((response) => {
+        // console.log('response', response);
+
+        if (!response) {
+          throw new Error('No data received');
         }
-        setDays(days);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchDays();
+        setWeatherData(response);
+        return;
+      })
+      .catch((error) => {
+        setError(true);
+        console.log(error);
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   if (error) {
     <h1>ERROR ....!!!!</h1>;
   }
 
-  if (loading) {
+  if (loading || !weatherData) {
     return (
       <>
         <h1>Trending list is loading...</h1>
@@ -58,7 +51,7 @@ const Home = () => {
     <div>
       <main>
         <Trips />
-        <DailyForecast />
+        <DailyForecast weatherData={weatherData} />
       </main>
     </div>
   );
