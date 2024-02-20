@@ -1,8 +1,16 @@
 import styled from '@emotion/styled';
 
+export const Container = styled.div`
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+`;
+
 export const Title = styled.h2`
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 35px;
   font-size: 22px;
 `;
 
@@ -21,4 +29,8 @@ export const Item = styled.li`
     width: 50px;
     height: 50px;
   }
+`;
+
+export const DayIcon = styled.p`
+  font-style: italic;
 `;

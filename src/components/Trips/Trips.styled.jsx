@@ -1,5 +1,9 @@
 import styled from '@emotion/styled';
 
+export const Section = styled.section`
+  margin-bottom: 35px;
+`;
+
 export const TripsList = styled.ul`
   display: flex;
   flex-wrap: wrap;
@@ -9,29 +13,32 @@ export const TripsList = styled.ul`
 `;
 
 export const ListItem = styled.li`
-  position: relative;
-
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-
-  max-width: 100%;
-  width: 274px;
-  height: 426px;
+  border-radius: 0px 0px 4px 4px;
+  width: 260px;
+  text-align: center;
 
   img {
     display: block;
-    height: 268px;
     width: 100%;
-    border-radius: ${(props) => props.theme.radius.normal};
-
-    object-fit: cover;
-    object-position: center;
   }
+`;
 
-  p {
-    color: ${(props) => props.theme.colors.black};
-    font-weight: 500;
-    line-height: 1.5;
-  }
+export const TripWrapper = styled.div`
+  padding: 32px 16px;
+  border: ${(props) => props.theme.borders.normal};
+  box-shadow: 0px 1px 6px rgba(46, 47, 66, 0.08);
+`;
+
+export const Title = styled.h2`
+  margin-bottom: 8px;
+  font-weight: ${(props) => props.theme.fontWeights.medium};
+  font-size: 20px;
+  line-height: 1.2;
+`;
+
+export const TripDates = styled.p`
+  color: ${(props) => props.theme.colors.secondary};
+  font-weight: ${(props) => props.theme.fontWeights.medium};
+  font-size: 16px;
+  line-height: ${(props) => props.theme.lineHeights.body};
 `;

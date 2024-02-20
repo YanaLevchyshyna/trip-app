@@ -48,12 +48,12 @@ const Home = () => {
     );
   }
   return (
-    <div>
+    <>
       <main>
         <Trips />
         <DailyForecast weatherData={weatherData} />
       </main>
-    </div>
+    </>
   );
 };
 

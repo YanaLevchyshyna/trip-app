@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 import WeatherImg from '../WeatherImages/WeatherImages';
-import { Title, List, Item } from './DailyForecast.styled';
+import { Container, Title, List, Item, DayIcon } from './DailyForecast.styled';
 
 const DailyForecast = ({ weatherData }) => {
   //   console.log('weatherData', weatherData);
@@ -11,7 +11,7 @@ const DailyForecast = ({ weatherData }) => {
 
   return (
     <section>
-      <div>
+      <Container>
         <Title>Forecast for each day of travel</Title>
         <List>
           {days.map((day) => (
@@ -22,14 +22,14 @@ const DailyForecast = ({ weatherData }) => {
                 })}
               </p>
               <WeatherImg weather={day.icon} />
-              <p>{day.icon}</p>
+              <DayIcon>{day.icon}</DayIcon>
               <p>
                 {day.tempmin}°C/{day.tempmax}°C
               </p>
             </Item>
           ))}
         </List>
-      </div>
+      </Container>
     </section>
   );
 };

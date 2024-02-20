@@ -1,7 +1,7 @@
 export const theme = {
   colors: {
-    primary: '#3470FF',
-    secondary: '#0B44CD',
+    primary: '#403d43',
+    secondary: '#8e8f99',
     accent: '#F7F7FB',
     text: 'rgba(18, 20, 23, 0.5)',
     black: '#121417',
@@ -35,7 +35,7 @@ export const theme = {
   },
   borders: {
     none: 'none',
-    normal: '1px solid #cecece',
+    normal: '1px solid #e7e9fc',
   },
   radius: {
     none: '0',
