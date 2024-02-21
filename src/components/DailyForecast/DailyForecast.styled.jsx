@@ -8,6 +8,16 @@ export const Container = styled.div`
   padding-right: 15px;
 `;
 
+export const ScrollWrapper = styled.div`
+  overflow-x: auto;
+  white-space: nowrap;
+  display: flex;
+
+  border-radius: 8px;
+  box-shadow: ${(props) => props.theme.shadows.boxShadowCard};
+  width: 700px;
+`;
+
 export const Title = styled.h2`
   text-align: center;
   margin-bottom: 35px;
@@ -24,6 +34,9 @@ export const Item = styled.li`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  flex: 0 0 auto;
+  margin-right: 20px;
 
   img {
     width: 50px;

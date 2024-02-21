@@ -1,7 +1,7 @@
 export const theme = {
   colors: {
     primary: '#403d43',
-    secondary: '#8e8f99',
+    secondary: '#c5c7d2',
     accent: '#F7F7FB',
     text: 'rgba(18, 20, 23, 0.5)',
     black: '#121417',
@@ -45,5 +45,6 @@ export const theme = {
   shadows: {
     textShadow: '0 1px 1px #fff',
     boxShadow: 'inset -3px -3px 7px #ffffff',
+    boxShadowCard: '0 2px 4px rgba(0, 0, 0, 0.15)',
   },
 };

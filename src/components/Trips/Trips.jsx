@@ -11,21 +11,28 @@ import {
   TripDates,
 } from './Trips.styled';
 
-const Trips = () => {
+const Trips = ({ onTripClick }) => {
   const [trips, setTrips] = useState([
     {
       id: 'id' + nanoid(),
       city: 'Barcelona',
-      startDate: '2023.06.25',
-      endDate: '2023.07.10',
+      startDate: '2023-06-25',
+      endDate: '2023-07-10',
     },
   ]);
+
+  const handleTripClick = (trip) => {
+    console.log('TRIP', trip);
+    if (onTripClick) {
+      onTripClick(trip.city, trip.startDate, trip.endDate);
+    }
+  };
 
   return (
     <Section>
       <TripsList>
         {trips.map((trip) => (
-          <ListItem key={trip.id}>
+          <ListItem key={trip.id} onClick={() => handleTripClick(trip)}>
             <img src={barcelonaImg} alt="Photo of Barcelona city" />
             <TripWrapper>
               <Title>{trip.city}</Title>
