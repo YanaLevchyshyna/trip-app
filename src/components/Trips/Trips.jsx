@@ -12,13 +12,13 @@ import {
   AddSvg,
 } from './Trips.styled';
 
-const Trips = ({ trips, toggleModal }) => {
+const Trips = ({ trips, toggleModal, onClick }) => {
   return (
     <Section>
       <ScrollWrapper>
         <TripsList>
           {trips.map((trip) => (
-            <ListItem key={trip.id}>
+            <ListItem key={trip.id} onClick={() => onClick(trip)}>
               <img src={trip.image} alt="City photo" />
               <TripWrapper>
                 <Title>{trip.city}</Title>

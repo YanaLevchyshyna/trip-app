@@ -83,7 +83,7 @@ export default function Modal({ onClick, onSubmit }) {
       endDate,
       image,
     };
-    console.log('newTrip ---->', newTrip);
+    // console.log('newTrip ---->', newTrip);
     onSubmit(newTrip);
 
     reset();

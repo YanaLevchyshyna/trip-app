@@ -12,7 +12,7 @@ const Home = () => {
   const [showModal, setShowModal] = useState(false);
   const [filter, setFilter] = useLocalStorage('filter', '');
   const [weatherData, setWeatherData] = useState(null);
-  // const [selectedTrip, setSelectedTrip] = useState(null);
+  const [selectedTrip, setSelectedTrip] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [trips, setTrips] = useLocalStorage('trips', [
@@ -25,7 +25,9 @@ const Home = () => {
     },
   ]);
 
-  // console.log('weather DATA===>', weatherData);
+  console.log('selectedTrip ===>', selectedTrip);
+  // const { city, startDate, endDate } = selectedTrip;
+  // console.log('city ===>', city);
 
   const city = 'Barcelona';
   const startDate = '2024-02-20';
@@ -63,6 +65,34 @@ const Home = () => {
     return filteredTrips;
   };
 
+  const onTripSelect = (trip) => {
+    setSelectedTrip(trip);
+  };
+
+  // useEffect(() => {
+  //   // setLoading(true);
+
+  //   if (selectedTrip) {
+  //     const { city, startDate, endDate } = selectedTrip;
+
+  //     getWeatherAPI
+  //       .getForecastFromTo(city, startDate, endDate)
+  //       .then((response) => {
+  //         console.log('response', response);
+
+  //         if (!response) {
+  //           throw new Error('No data received');
+  //         }
+  //         setWeatherData(response);
+  //       })
+  //       .catch((error) => {
+  //         setError(true);
+  //         console.log(error);
+  //       })
+  //       .finally(() => setLoading(false));
+  //   }
+  // }, [selectedTrip]);
+
   useEffect(() => {
     setLoading(true);
     // const { city, startDate, endDate } = selectedTrip;
@@ -84,10 +114,31 @@ const Home = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  // const handleTripSelection = (trip) => {
-  //   console.log('TRIP==>', trip);
-  //   setSelectedTrip(trip);
-  // };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (selectedTrip && !loading) {
+  //       setLoading(true);
+  //       try {
+  //         const { city, startDate, endDate } = selectedTrip;
+  //         const res = await getWeatherAPI.getForecastFromTo(
+  //           city,
+  //           startDate,
+  //           endDate
+  //         );
+  //         if (!res) {
+  //           throw new Error('No data received');
+  //         }
+  //         setWeatherData(response);
+  //       } catch (error) {
+  //         setError(true);
+  //         console.log(error);
+  //       } finally {
+  //         setLoading(false);
+  //       }
+  //     }
+  //   };
+  //   fetchData();
+  // }, [selectedTrip, loading]);
 
   if (error) {
     return <h1>ERROR ....!!!!</h1>;
@@ -106,9 +157,13 @@ const Home = () => {
       <main>
         <Filter value={filter} onChange={handleSearchFieldChange} />
         {showModal && <Modal onClick={toggleModal} onSubmit={onAddTrip} />}
-        <Trips trips={getFilterdTrip()} toggleModal={toggleModal} />
-        <DailyForecast weatherData={weatherData} />
-        {/* {selectedTrip && <DailyForecast weatherData={weatherData} />} */}
+        <Trips
+          trips={getFilterdTrip()}
+          toggleModal={toggleModal}
+          onClick={onTripSelect}
+        />
+        {/* <DailyForecast weatherData={weatherData} /> */}
+        {selectedTrip && <DailyForecast weatherData={weatherData} />}
       </main>
     </>
   );
