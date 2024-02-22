@@ -5,20 +5,12 @@ import useLocalStorage from '../../hooks/useLocalStorage';
 import { getWeatherAPI } from '../../services/fetchApi';
 import DailyForecast from '../DailyForecast/DailyForecast';
 import Modal from '../Modal/Modal';
-import {
-  Section,
-  ScrollWrapper,
-  ListItem,
-  TripWrapper,
-  TripsList,
-  Title,
-  TripDates,
-  AddTripButton,
-  AddSvg,
-} from './Home.styled';
+import Filter from '../Filter/Filter';
+import Trips from '../Trips/Trips';
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
+  const [filter, setFilter] = useLocalStorage('filter', '');
   const [weatherData, setWeatherData] = useState(null);
   // const [selectedTrip, setSelectedTrip] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -28,7 +20,7 @@ const Home = () => {
       id: '1',
       city: 'Barcelona',
       startDate: '2024-02-20',
-      endDate: '2024-02-10',
+      endDate: '2024-02-28',
       image: 'https://i.postimg.cc/sxzzPrfR/barcelona.avif',
     },
   ]);
@@ -52,11 +44,18 @@ const Home = () => {
     );
 
     if (tripIsAdded) {
-      console.log('Error');
+      throw new Error('Sorry this trip has already added !');
     } else {
       setTrips((trips) => [{ ...newTrip }, ...trips]);
     }
   };
+
+  const handleSearchFieldChange = (e) => {
+    setFilter(e.currentTarget.value);
+  };
+
+  const getFilterdTrip = () =>
+    trips.filter((trip) => trip.city.includes(filter));
 
   useEffect(() => {
     setLoading(true);
@@ -99,30 +98,9 @@ const Home = () => {
   return (
     <>
       <main>
-        <Section>
-          <ScrollWrapper>
-            <TripsList>
-              {trips.map((trip) => (
-                <ListItem key={trip.id}>
-                  <img src={trip.image} alt="City photo" />
-                  <TripWrapper>
-                    <Title>{trip.city}</Title>
-                    <TripDates>
-                      {trip.startDate} - {trip.endDate}
-                    </TripDates>
-                  </TripWrapper>
-                </ListItem>
-              ))}
-              {showModal && (
-                <Modal onClick={toggleModal} onSubmit={onAddTrip} />
-              )}
-              <AddTripButton type="button" onClick={toggleModal}>
-                Add trip
-                <AddSvg />
-              </AddTripButton>
-            </TripsList>
-          </ScrollWrapper>
-        </Section>
+        <Filter value={filter} onChange={handleSearchFieldChange} />
+        {showModal && <Modal onClick={toggleModal} onSubmit={onAddTrip} />}
+        <Trips trips={getFilterdTrip()} toggleModal={toggleModal} />
         <DailyForecast weatherData={weatherData} />
         {/* {selectedTrip && <DailyForecast weatherData={weatherData} />} */}
       </main>

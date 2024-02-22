@@ -1,50 +1,54 @@
-import { useState } from 'react';
-import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
 
-import barcelonaImg from '../../assets/images/barcelona.jpeg';
 import {
   Section,
+  ScrollWrapper,
   ListItem,
   TripWrapper,
   TripsList,
   Title,
   TripDates,
+  AddTripButton,
+  AddSvg,
 } from './Trips.styled';
 
-const Trips = ({ onTripClick }) => {
-  const [trips, setTrips] = useState([
-    {
-      id: 'id' + nanoid(),
-      city: 'Barcelona',
-      startDate: '2023-06-25',
-      endDate: '2023-07-10',
-    },
-  ]);
-
-  const handleTripClick = (trip) => {
-    console.log('TRIP', trip);
-    if (onTripClick) {
-      onTripClick(trip.city, trip.startDate, trip.endDate);
-    }
-  };
-
+const Trips = ({ trips, toggleModal }) => {
   return (
     <Section>
-      <TripsList>
-        {trips.map((trip) => (
-          <ListItem key={trip.id} onClick={() => handleTripClick(trip)}>
-            <img src={barcelonaImg} alt="Photo of Barcelona city" />
-            <TripWrapper>
-              <Title>{trip.city}</Title>
-              <TripDates>
-                {trip.startDate} - {trip.endDate}
-              </TripDates>
-            </TripWrapper>
-          </ListItem>
-        ))}
-      </TripsList>
+      <ScrollWrapper>
+        <TripsList>
+          {trips.map((trip) => (
+            <ListItem key={trip.id}>
+              <img src={trip.image} alt="City photo" />
+              <TripWrapper>
+                <Title>{trip.city}</Title>
+                <TripDates>
+                  {trip.startDate} - {trip.endDate}
+                </TripDates>
+              </TripWrapper>
+            </ListItem>
+          ))}
+          <AddTripButton type="button" onClick={toggleModal}>
+            Add trip
+            <AddSvg />
+          </AddTripButton>
+        </TripsList>
+      </ScrollWrapper>
     </Section>
   );
+};
+
+Trips.propTypes = {
+  trips: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      city: PropTypes.string.isRequired,
+      startDate: PropTypes.string.isRequired,
+      endDate: PropTypes.string.isRequired,
+      image: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  toggleModal: PropTypes.func.isRequired,
 };
 
 export default Trips;
