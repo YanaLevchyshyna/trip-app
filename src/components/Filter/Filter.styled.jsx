@@ -12,19 +12,22 @@ export const LabelSearch = styled.label`
   display: block;
   font-weight: 700;
   cursor: pointer;
-  font-size: 16px;
-  color: ${(p) => p.theme.colors.primary};
+  font-size: 22px;
 `;
 
 export const InputSearch = styled.input`
   margin-top: 10px;
   display: block;
-  width: 300px;
-  font-size: 13px;
-  padding: 6px 0 4px 10px;
-  background-color: #f6f6f6;
+  width: 400px;
+  font-size: 16px;
+  padding: 8px 0 6px 10px;
+  background-color: #fdfefd;
   border: ${(p) => p.theme.borders.normal};
   border-radius: ${(p) => p.theme.radius.normal};
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
   ::placeholder {
     color: #212529;
@@ -36,6 +39,6 @@ export const InputSearch = styled.input`
     background-color: #fff;
     border-color: #bdbdbd;
     outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
+    box-shadow: ${(props) => props.theme.shadows.boxShadowCard};
   }
 `;

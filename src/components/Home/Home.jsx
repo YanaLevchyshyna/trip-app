@@ -54,8 +54,14 @@ const Home = () => {
     setFilter(e.currentTarget.value);
   };
 
-  const getFilterdTrip = () =>
-    trips.filter((trip) => trip.city.includes(filter));
+  const getFilterdTrip = () => {
+    const normalizedToLowerCase = filter.toLowerCase();
+
+    const filteredTrips = trips.filter((trip) => {
+      return trip.city.toLowerCase().trim().includes(normalizedToLowerCase);
+    });
+    return filteredTrips;
+  };
 
   useEffect(() => {
     setLoading(true);
