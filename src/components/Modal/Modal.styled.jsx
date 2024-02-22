@@ -12,7 +12,6 @@ export const ModalBackdrop = styled.div`
 
 export const ModalContetnt = styled.div`
   position: absolute;
-  width: auto;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -73,6 +72,9 @@ export const Form = styled.form`
 
 export const Select = styled.select`
   margin-bottom: 16px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 `;
 
 export const Label = styled.label`
@@ -85,4 +87,24 @@ export const Input = styled.input`
   border: 1px solid #ccc;
   border-radius: 4px;
   outline: none;
+`;
+
+export const SaveButton = styled.button`
+  padding: 4px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  box-shadow: ${(props) => props.theme.shadows.boxShadowCard};
+
+  font-size: 18px;
+  font-weight: ${(props) => props.theme.fontWeights.medium};
+  font-family: inherit;
+
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+
+  :hover {
+    color: #ffffff;
+    background-color: #403d43;
+  }
 `;

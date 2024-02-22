@@ -5,12 +5,20 @@ export const Section = styled.section`
   margin-bottom: 35px;
 `;
 
+export const ScrollWrapper = styled.div`
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  display: flex;
+
+  border-radius: 8px;
+  box-shadow: ${(props) => props.theme.shadows.boxShadowCard};
+  width: 700px;
+`;
+
 export const TripsList = styled.ul`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 29px;
-  margin: 0px auto;
+  gap: 24px;
 `;
 
 export const ListItem = styled.li`
@@ -21,7 +29,10 @@ export const ListItem = styled.li`
   cursor: pointer;
   img {
     display: block;
-    width: 100%;
+    max-width: 100%;
+    height: 260px;
+    object-fit: cover;
+
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
   }

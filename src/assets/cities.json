@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Kyiv",
+    "image": "https://i.postimg.cc/dVkqHRpV/kyiv.jpg"
+  },
+  {
+    "name": "New York",
+    "image": "https://i.postimg.cc/qMV45dk9/new-york.jpg"
+  },
+  {
+    "name": "London",
+    "image": "https://i.postimg.cc/nV3khnWD/london.jpg"
+  },
+  {
+    "name": "Prague",
+    "image": "https://i.postimg.cc/pdc4g3jN/prague.jpg"
+  },
+  {
+    "name": "Budapest",
+    "image": "https://i.postimg.cc/YSLzCPVB/budapest.jpg"
+  },
+  {
+    "name": "Florence",
+    "image": "https://i.postimg.cc/VvftnZ76/florence.jpg"
+  },
+  {
+    "name": "Barcelona",
+    "image": "https://i.postimg.cc/sxzzPrfR/barcelona.avif"
+  },
+  {
+    "name": "Paris",
+    "image": "https://i.postimg.cc/DZMhP86X/paris.jpg"
+  },
+  {
+    "name": "Vienna",
+    "image": "https://i.postimg.cc/fWPXJCcw/vienna.jpg"
+  },
+  {
+    "name": "Vilnius",
+    "image": "https://i.postimg.cc/V6rtRb1y/vilnius.jpg"
+  }
+]

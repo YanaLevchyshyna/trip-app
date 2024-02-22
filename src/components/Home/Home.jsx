@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
-import { nanoid } from 'nanoid';
+import { toast } from 'react-toastify';
 
-import barcelonaImg from '../../assets/images/barcelona.jpeg';
+import useLocalStorage from '../../hooks/useLocalStorage';
 import { getWeatherAPI } from '../../services/fetchApi';
 import DailyForecast from '../DailyForecast/DailyForecast';
 import Modal from '../Modal/Modal';
 import {
   Section,
+  ScrollWrapper,
   ListItem,
   TripWrapper,
   TripsList,
@@ -22,16 +23,17 @@ const Home = () => {
   // const [selectedTrip, setSelectedTrip] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [trips, setTrips] = useState([
+  const [trips, setTrips] = useLocalStorage('trips', [
     {
-      id: 'id' + nanoid(),
+      id: '1',
       city: 'Barcelona',
       startDate: '2024-02-20',
       endDate: '2024-02-10',
+      image: 'https://i.postimg.cc/sxzzPrfR/barcelona.avif',
     },
   ]);
 
-  console.log('weather DATA===>', weatherData);
+  // console.log('weather DATA===>', weatherData);
 
   const city = 'Barcelona';
   const startDate = '2024-02-20';
@@ -39,6 +41,21 @@ const Home = () => {
 
   const toggleModal = () => {
     setShowModal((prevState) => !prevState);
+  };
+
+  const onAddTrip = (newTrip) => {
+    const tripIsAdded = trips.find(
+      ({ city, startDate, endDate }) =>
+        city === newTrip.city ||
+        startDate === newTrip.startDate ||
+        endDate === newTrip.endDate
+    );
+
+    if (tripIsAdded) {
+      console.log('Error');
+    } else {
+      setTrips((trips) => [{ ...newTrip }, ...trips]);
+    }
   };
 
   useEffect(() => {
@@ -83,24 +100,28 @@ const Home = () => {
     <>
       <main>
         <Section>
-          <TripsList>
-            {trips.map((trip) => (
-              <ListItem key={trip.id}>
-                <img src={barcelonaImg} alt="Photo of Barcelona city" />
-                <TripWrapper>
-                  <Title>{trip.city}</Title>
-                  <TripDates>
-                    {trip.startDate} - {trip.endDate}
-                  </TripDates>
-                </TripWrapper>
-              </ListItem>
-            ))}
-            {showModal && <Modal onClick={toggleModal} />}
-            <AddTripButton type="button" onClick={toggleModal}>
-              Add trip
-              <AddSvg />
-            </AddTripButton>
-          </TripsList>
+          <ScrollWrapper>
+            <TripsList>
+              {trips.map((trip) => (
+                <ListItem key={trip.id}>
+                  <img src={trip.image} alt="City photo" />
+                  <TripWrapper>
+                    <Title>{trip.city}</Title>
+                    <TripDates>
+                      {trip.startDate} - {trip.endDate}
+                    </TripDates>
+                  </TripWrapper>
+                </ListItem>
+              ))}
+              {showModal && (
+                <Modal onClick={toggleModal} onSubmit={onAddTrip} />
+              )}
+              <AddTripButton type="button" onClick={toggleModal}>
+                Add trip
+                <AddSvg />
+              </AddTripButton>
+            </TripsList>
+          </ScrollWrapper>
         </Section>
         <DailyForecast weatherData={weatherData} />
         {/* {selectedTrip && <DailyForecast weatherData={weatherData} />} */}
