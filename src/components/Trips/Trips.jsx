@@ -49,6 +49,7 @@ Trips.propTypes = {
     })
   ).isRequired,
   toggleModal: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default Trips;

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { getWeatherAPI } from '../../services/fetchApi';
@@ -9,12 +9,6 @@ import Filter from '../Filter/Filter';
 import Trips from '../Trips/Trips';
 
 const Home = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [filter, setFilter] = useLocalStorage('filter', '');
-  const [weatherData, setWeatherData] = useState(null);
-  const [selectedTrip, setSelectedTrip] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
   const [trips, setTrips] = useLocalStorage('trips', [
     {
       id: '1',
@@ -24,14 +18,15 @@ const Home = () => {
       image: 'https://i.postimg.cc/sxzzPrfR/barcelona.avif',
     },
   ]);
+  const [showModal, setShowModal] = useState(false);
+  const [filter, setFilter] = useLocalStorage('filter', '');
+  const [weatherData, setWeatherData] = useState(null);
+  const [selectedTrip, setSelectedTrip] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [tripClicked, setTripClicked] = useState(false);
+  const [error, setError] = useState(false);
 
   console.log('selectedTrip ===>', selectedTrip);
-  // const { city, startDate, endDate } = selectedTrip;
-  // console.log('city ===>', city);
-
-  const city = 'Barcelona';
-  const startDate = '2024-02-20';
-  const endDate = '2024-02-25';
 
   const toggleModal = () => {
     setShowModal((prevState) => !prevState);
@@ -56,7 +51,7 @@ const Home = () => {
     setFilter(e.currentTarget.value);
   };
 
-  const getFilterdTrip = () => {
+  const getFilteredTrip = () => {
     const normalizedToLowerCase = filter.toLowerCase();
 
     const filteredTrips = trips.filter((trip) => {
@@ -67,78 +62,44 @@ const Home = () => {
 
   const onTripSelect = (trip) => {
     setSelectedTrip(trip);
+    setTripClicked(true);
   };
 
-  // useEffect(() => {
-  //   // setLoading(true);
-
-  //   if (selectedTrip) {
-  //     const { city, startDate, endDate } = selectedTrip;
-
-  //     getWeatherAPI
-  //       .getForecastFromTo(city, startDate, endDate)
-  //       .then((response) => {
-  //         console.log('response', response);
-
-  //         if (!response) {
-  //           throw new Error('No data received');
-  //         }
-  //         setWeatherData(response);
-  //       })
-  //       .catch((error) => {
-  //         setError(true);
-  //         console.log(error);
-  //       })
-  //       .finally(() => setLoading(false));
-  //   }
-  // }, [selectedTrip]);
+  useEffect(() => {
+    if (selectedTrip === null && trips.length > 0) {
+      setSelectedTrip(trips[0]);
+    }
+  }, [selectedTrip, trips]);
 
   useEffect(() => {
-    setLoading(true);
-    // const { city, startDate, endDate } = selectedTrip;
-    // console.log('city ===>', city);
-    getWeatherAPI
-      .getForecastFromTo(city, startDate, endDate)
-      .then((response) => {
-        console.log('response', response);
+    const fetchData = async () => {
+      try {
+        if (selectedTrip) {
+          setLoading(true);
 
-        if (!response) {
-          throw new Error('No data received');
+          const { city, startDate, endDate } = selectedTrip;
+          const response = await getWeatherAPI.getForecastFromTo(
+            city,
+            startDate,
+            endDate
+          );
+
+          if (!response) {
+            throw new Error('No data received');
+          }
+
+          setWeatherData(response);
         }
-        setWeatherData(response);
-      })
-      .catch((error) => {
+      } catch (error) {
         setError(true);
-        console.log(error);
-      })
-      .finally(() => setLoading(false));
-  }, []);
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     if (selectedTrip && !loading) {
-  //       setLoading(true);
-  //       try {
-  //         const { city, startDate, endDate } = selectedTrip;
-  //         const res = await getWeatherAPI.getForecastFromTo(
-  //           city,
-  //           startDate,
-  //           endDate
-  //         );
-  //         if (!res) {
-  //           throw new Error('No data received');
-  //         }
-  //         setWeatherData(response);
-  //       } catch (error) {
-  //         setError(true);
-  //         console.log(error);
-  //       } finally {
-  //         setLoading(false);
-  //       }
-  //     }
-  //   };
-  //   fetchData();
-  // }, [selectedTrip, loading]);
+    fetchData();
+  }, [selectedTrip]);
 
   if (error) {
     return <h1>ERROR ....!!!!</h1>;
@@ -158,12 +119,13 @@ const Home = () => {
         <Filter value={filter} onChange={handleSearchFieldChange} />
         {showModal && <Modal onClick={toggleModal} onSubmit={onAddTrip} />}
         <Trips
-          trips={getFilterdTrip()}
+          trips={getFilteredTrip()}
           toggleModal={toggleModal}
           onClick={onTripSelect}
         />
-        {/* <DailyForecast weatherData={weatherData} /> */}
-        {selectedTrip && <DailyForecast weatherData={weatherData} />}
+        {selectedTrip && tripClicked && !loading && weatherData && (
+          <DailyForecast weatherData={weatherData} />
+        )}
       </main>
     </>
   );
