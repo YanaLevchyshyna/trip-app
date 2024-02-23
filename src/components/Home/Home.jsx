@@ -7,6 +7,8 @@ import DailyForecast from '../DailyForecast/DailyForecast';
 import Modal from '../Modal/Modal';
 import Filter from '../Filter/Filter';
 import Trips from '../Trips/Trips';
+import TodaysWeather from '../TodaysWeather/TodaysWeather';
+import { Container } from './Home.styled';
 
 const Home = () => {
   const [trips, setTrips] = useLocalStorage('trips', [
@@ -23,8 +25,8 @@ const Home = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [selectedTrip, setSelectedTrip] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [tripClicked, setTripClicked] = useState(false);
   const [error, setError] = useState(false);
+  const [tripClicked, setTripClicked] = useState(false);
 
   console.log('selectedTrip ===>', selectedTrip);
 
@@ -92,7 +94,7 @@ const Home = () => {
         }
       } catch (error) {
         setError(true);
-        console.error(error);
+        console.log(error);
       } finally {
         setLoading(false);
       }
@@ -115,18 +117,32 @@ const Home = () => {
 
   return (
     <>
-      <main>
-        <Filter value={filter} onChange={handleSearchFieldChange} />
-        {showModal && <Modal onClick={toggleModal} onSubmit={onAddTrip} />}
-        <Trips
-          trips={getFilteredTrip()}
-          toggleModal={toggleModal}
-          onClick={onTripSelect}
-        />
-        {selectedTrip && tripClicked && !loading && weatherData && (
-          <DailyForecast weatherData={weatherData} />
-        )}
-      </main>
+      <Container>
+        <main
+          style={{
+            display: 'flex',
+            gap: 24 + 'px',
+          }}
+        >
+          <div>
+            <Filter value={filter} onChange={handleSearchFieldChange} />
+            {showModal && <Modal onClick={toggleModal} onSubmit={onAddTrip} />}
+            <Trips
+              trips={getFilteredTrip()}
+              toggleModal={toggleModal}
+              onClick={onTripSelect}
+            />
+            {selectedTrip && tripClicked && !loading && weatherData && (
+              <DailyForecast weatherData={weatherData} />
+            )}
+          </div>
+          <div>
+            {selectedTrip && tripClicked && !loading && weatherData && (
+              <TodaysWeather selectedTrip={selectedTrip} />
+            )}
+          </div>
+        </main>
+      </Container>
     </>
   );
 };

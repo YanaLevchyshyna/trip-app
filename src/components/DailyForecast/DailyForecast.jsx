@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 
 import WeatherImg from '../WeatherImages/WeatherImages';
 import {
-  Container,
   ScrollWrapper,
   Title,
   List,
@@ -11,34 +10,32 @@ import {
 } from './DailyForecast.styled';
 
 const DailyForecast = ({ weatherData }) => {
-  console.log('weatherData', weatherData);
+  // console.log('weatherData', weatherData);
 
   const { days } = weatherData || {};
-  console.log('DAYS ===> ', days);
+  // console.log('DAYS ===> ', days);
 
   return (
     <section>
-      <Container>
-        <Title>Forecast for each day of travel</Title>
-        <ScrollWrapper>
-          <List>
-            {days.map((day) => (
-              <Item key={day.datetime}>
-                <p>
-                  {new Date(day.datetime).toLocaleDateString('en-US', {
-                    weekday: 'long',
-                  })}
-                </p>
-                <WeatherImg weather={day.icon} />
-                <DayIcon>{day.icon}</DayIcon>
-                <p>
-                  {day.tempmin}°C/{day.tempmax}°C
-                </p>
-              </Item>
-            ))}
-          </List>
-        </ScrollWrapper>
-      </Container>
+      <Title>Forecast for each day of travel</Title>
+      <ScrollWrapper>
+        <List>
+          {days.map((day) => (
+            <Item key={day.datetime}>
+              <p>
+                {new Date(day.datetime).toLocaleDateString('en-US', {
+                  weekday: 'long',
+                })}
+              </p>
+              <WeatherImg weather={day.icon} />
+              <DayIcon>{day.icon}</DayIcon>
+              <p>
+                {day.tempmin}°C/{day.tempmax}°C
+              </p>
+            </Item>
+          ))}
+        </List>
+      </ScrollWrapper>
     </section>
   );
 };

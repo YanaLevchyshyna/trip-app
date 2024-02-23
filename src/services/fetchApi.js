@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_KEY = 'JACCUESG67JX468QPQJUAVATV';
+const API_KEY = 'QP9ASGZG2KJNZUD6GFWVR8R4S';
 
 axios.defaults.baseURL =
   'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/';

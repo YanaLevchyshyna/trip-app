@@ -6,7 +6,7 @@ const Filter = ({ value, onChange }) => {
   return (
     <FilterWrapp>
       <LabelSearch htmlFor={'id' + nanoid()}>
-        Find your trip by city
+        Find your trip by the city
         <InputSearch
           id={'id' + nanoid()}
           placeholder="Search"

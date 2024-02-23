@@ -25,7 +25,14 @@ const WeatherImg = ({ weather }) => {
     }
   };
 
-  return <img src={getIconPath(weather)} alt={`Weather: ${weather}`} />;
+  return (
+    <img
+      src={getIconPath(weather)}
+      width="50px"
+      height="50px"
+      alt={`Weather: ${weather}`}
+    />
+  );
 };
 
 WeatherImg.propTypes = {
