@@ -29,8 +29,6 @@ const Home = () => {
   const [error, setError] = useState(false);
   const [tripClicked, setTripClicked] = useState(false);
 
-  console.log('selectedTrip ===>', selectedTrip);
-
   const toggleModal = () => {
     setShowModal((prevState) => !prevState);
   };

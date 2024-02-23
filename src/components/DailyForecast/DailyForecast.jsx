@@ -10,10 +10,7 @@ import {
 } from './DailyForecast.styled';
 
 const DailyForecast = ({ weatherData }) => {
-  // console.log('weatherData', weatherData);
-
   const { days } = weatherData || {};
-  // console.log('DAYS ===> ', days);
 
   return (
     <section>
@@ -40,8 +37,6 @@ const DailyForecast = ({ weatherData }) => {
   );
 };
 
-export default DailyForecast;
-
 DailyForecast.propTypes = {
   weatherData: PropTypes.shape({
     days: PropTypes.arrayOf(
@@ -54,3 +49,5 @@ DailyForecast.propTypes = {
     ),
   }),
 };
+
+export default DailyForecast;

@@ -18,12 +18,7 @@ const TodaysWeather = ({ selectedTrip }) => {
   const [todaysWeather, setTodaysWeather] = useState(null);
   const [countdownDays, setCountdownDays] = useState(null);
 
-  console.log('countdownDays', countdownDays);
-
-  //   console.log('todaysWeather', todaysWeather);
-
   const { days, address } = todaysWeather || {};
-  //   console.log('DAYS ===> ', days);
 
   useEffect(() => {
     const fetchTodayWeather = async () => {
