@@ -8,6 +8,7 @@ import Modal from '../Modal/Modal';
 import Filter from '../Filter/Filter';
 import Trips from '../Trips/Trips';
 import TodaysWeather from '../TodaysWeather/TodaysWeather';
+import Loader from '../Loader/Loader';
 import { Container } from './Home.styled';
 
 const Home = () => {
@@ -108,11 +109,7 @@ const Home = () => {
   }
 
   if (loading || !weatherData) {
-    return (
-      <>
-        <h1>Traveling list is loading...</h1>
-      </>
-    );
+    return <Loader />;
   }
 
   return (
