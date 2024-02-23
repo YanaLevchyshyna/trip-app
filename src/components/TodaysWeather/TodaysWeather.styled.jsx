@@ -53,7 +53,23 @@ export const Datetemp = styled.p`
 `;
 
 export const AddressEl = styled.p`
+  margin-bottom: 30px;
   color: ${(props) => props.theme.colors.accent};
   font-size: ${(props) => props.theme.fontSizes.xl};
   font-weight: bold;
+`;
+
+export const CountdownWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+export const CountdownEl = styled.p`
+  color: ${(props) => props.theme.colors.accent};
+  font-size: ${(props) => props.theme.fontSizes.l};
+
+  span {
+    font-size: ${(props) => props.theme.fontSizes.m};
+  }
 `;

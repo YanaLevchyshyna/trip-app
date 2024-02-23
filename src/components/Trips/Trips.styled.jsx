@@ -52,7 +52,6 @@ export const Title = styled.h2`
 `;
 
 export const TripDates = styled.p`
-  color: ${(props) => props.theme.colors.secondary};
   font-weight: ${(props) => props.theme.fontWeights.medium};
   font-size: 16px;
   line-height: ${(props) => props.theme.lineHeights.body};

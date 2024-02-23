@@ -10,6 +10,8 @@ import {
   Datetime,
   Datetemp,
   AddressEl,
+  CountdownWrapper,
+  CountdownEl,
 } from './TodaysWeather.styled';
 
 const TodaysWeather = ({ selectedTrip }) => {
@@ -81,12 +83,25 @@ const TodaysWeather = ({ selectedTrip }) => {
         )}
 
         {countdownDays && (
-          <div>
-            <p>{countdownDays.days} days</p>
-            <p>{countdownDays.hours} hours</p>
-            <p>{countdownDays.minutes} minutes</p>
-            <p>{countdownDays.seconds} seconds</p>
-          </div>
+          <CountdownWrapper>
+            <CountdownEl>
+              {countdownDays.days}
+              <br />
+              <span>days</span>
+            </CountdownEl>
+            <CountdownEl>
+              {countdownDays.hours} <br />
+              <span>hours</span>
+            </CountdownEl>
+            <CountdownEl>
+              {countdownDays.minutes} <br />
+              <span>minutes</span>
+            </CountdownEl>
+            <CountdownEl>
+              {countdownDays.seconds} <br />
+              <span>seconds</span>
+            </CountdownEl>
+          </CountdownWrapper>
         )}
       </Wrapper>
     </section>
