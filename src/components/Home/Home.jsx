@@ -47,7 +47,7 @@ const Home = () => {
         position: 'top-right',
         theme: 'colored',
       });
-      // throw new Error('Sorry this trip has already been added !');
+      // throw new Error('Sorry trip on this date has already been planned !');
     } else {
       setTrips((trips) => [{ ...newTrip }, ...trips]);
     }
