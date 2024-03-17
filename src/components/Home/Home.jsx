@@ -43,7 +43,7 @@ const Home = () => {
     );
 
     if (tripIsAdded) {
-      toast.error('Sorry this trip has already added !', {
+      toast.error('Sorry trip on this date has already been planned !', {
         position: 'top-right',
         theme: 'colored',
       });
