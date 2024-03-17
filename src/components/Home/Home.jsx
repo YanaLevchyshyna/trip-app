@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { getWeatherAPI } from '../../services/fetchApi';
@@ -35,14 +36,16 @@ const Home = () => {
 
   const onAddTrip = (newTrip) => {
     const tripIsAdded = trips.find(
-      ({ city, startDate, endDate }) =>
-        city === newTrip.city ||
-        startDate === newTrip.startDate ||
-        endDate === newTrip.endDate
+      ({ startDate, endDate }) =>
+        startDate === newTrip.startDate || endDate === newTrip.endDate
     );
 
     if (tripIsAdded) {
-      throw new Error('Sorry this trip has already added !');
+      toast.error('Sorry this trip has already added !', {
+        position: 'top-right',
+        theme: 'colored',
+      });
+      // throw new Error('Sorry this trip has already added !');
     } else {
       setTrips((trips) => [{ ...newTrip }, ...trips]);
     }
