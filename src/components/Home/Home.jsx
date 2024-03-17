@@ -37,7 +37,9 @@ const Home = () => {
   const onAddTrip = (newTrip) => {
     const tripIsAdded = trips.find(
       ({ startDate, endDate }) =>
-        startDate === newTrip.startDate || endDate === newTrip.endDate
+        (newTrip.startDate >= startDate && newTrip.startDate <= endDate) ||
+        (newTrip.endDate >= startDate && newTrip.endDate <= endDate) ||
+        (newTrip.startDate <= startDate && newTrip.endDate >= endDate)
     );
 
     if (tripIsAdded) {
@@ -45,7 +47,7 @@ const Home = () => {
         position: 'top-right',
         theme: 'colored',
       });
-      // throw new Error('Sorry this trip has already added !');
+      // throw new Error('Sorry this trip has already been added !');
     } else {
       setTrips((trips) => [{ ...newTrip }, ...trips]);
     }
