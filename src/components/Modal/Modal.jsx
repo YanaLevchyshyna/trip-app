@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { AiOutlineClose } from 'react-icons/ai';
 import { nanoid } from 'nanoid';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import tripCities from '../../assets/cities.json';
 import PropTypes from 'prop-types';

@@ -50,6 +50,10 @@ const Home = () => {
       // throw new Error('Sorry trip on this date has already been planned !');
     } else {
       setTrips((trips) => [{ ...newTrip }, ...trips]);
+      toast.success('Your new trip was successfully added!', {
+        position: 'top-right',
+        theme: 'colored',
+      });
     }
   };
 
