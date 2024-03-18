@@ -60,7 +60,7 @@ export default function Modal({ onClick, onSubmit }) {
       case 'city':
         setCity(value);
         const selectedCity = cities.find((city) => city.name === value);
-        console.log('selectedCity', selectedCity);
+        // console.log('selectedCity', selectedCity);
         setImage(selectedCity ? selectedCity.image : '');
         break;
       case 'startDate':
