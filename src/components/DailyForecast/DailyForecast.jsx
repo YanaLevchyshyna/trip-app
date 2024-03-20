@@ -28,6 +28,9 @@ const DailyForecast = ({ weatherData }) => {
       <Title>Forecast for each day of travel</Title>
       <ScrollWrapper>
         <List>
+          <button onClick={scrollLeft}>
+            <FaChevronLeft />
+          </button>
           {days.map((day) => (
             <Item key={day.datetime}>
               <p>
@@ -42,15 +45,10 @@ const DailyForecast = ({ weatherData }) => {
               </p>
             </Item>
           ))}
-        </List>
-        <div>
-          <button onClick={scrollLeft}>
+          <button onClick={scrollRight}>
             <FaChevronRight />
           </button>
-          <button onClick={scrollRight}>
-            <FaChevronLeft />
-          </button>
-        </div>
+        </List>
       </ScrollWrapper>
     </section>
   );

@@ -39,3 +39,16 @@ export const Item = styled.li`
 export const DayIcon = styled.p`
   font-style: italic;
 `;
+
+export const ScrollButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  color: ${(props) => props.theme.colors.primary};
+  background-color: transparent;
+  border: none;
+  outline: none;
+
+  cursor: pointer;
+`;
