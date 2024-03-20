@@ -9,6 +9,7 @@ import {
   List,
   Item,
   DayIcon,
+  ScrollButton,
 } from './DailyForecast.styled';
 
 const DailyForecast = ({ weatherData }) => {
@@ -27,10 +28,10 @@ const DailyForecast = ({ weatherData }) => {
     <section>
       <Title>Forecast for each day of travel</Title>
       <ScrollWrapper>
+        <ScrollButton onClick={scrollLeft}>
+          <FaChevronLeft />
+        </ScrollButton>
         <List>
-          <button onClick={scrollLeft}>
-            <FaChevronLeft />
-          </button>
           {days.map((day) => (
             <Item key={day.datetime}>
               <p>
@@ -45,10 +46,10 @@ const DailyForecast = ({ weatherData }) => {
               </p>
             </Item>
           ))}
-          <button onClick={scrollRight}>
-            <FaChevronRight />
-          </button>
         </List>
+        <ScrollButton onClick={scrollRight}>
+          <FaChevronRight />
+        </ScrollButton>
       </ScrollWrapper>
     </section>
   );
