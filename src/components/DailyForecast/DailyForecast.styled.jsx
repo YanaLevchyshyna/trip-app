@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 
 export const ScrollWrapper = styled.div`
   overflow-x: auto;
@@ -40,15 +41,20 @@ export const DayIcon = styled.p`
   font-style: italic;
 `;
 
-export const ScrollButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
-  color: ${(props) => props.theme.colors.primary};
-  background-color: transparent;
-  border: none;
-  outline: none;
-
+export const FaChevronRightsvg = styled(FaChevronRight)`
+  opacity: 0.5;
   cursor: pointer;
+
+  :hover {
+    opacity: 1;
+  }
+`;
+
+export const FaChevronLeftsvg = styled(FaChevronLeft)`
+  opacity: 0.5;
+  cursor: pointer;
+
+  :hover {
+    opacity: 1;
+  }
 `;

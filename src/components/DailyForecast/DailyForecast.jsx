@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
+// import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 
 import WeatherImg from '../WeatherImages/WeatherImages';
 import {
@@ -9,7 +9,8 @@ import {
   List,
   Item,
   DayIcon,
-  ScrollButton,
+  FaChevronRightsvg,
+  FaChevronLeftsvg,
 } from './DailyForecast.styled';
 
 const DailyForecast = ({ weatherData }) => {
@@ -27,30 +28,30 @@ const DailyForecast = ({ weatherData }) => {
   return (
     <section>
       <Title>Forecast for each day of travel</Title>
-      <ScrollWrapper>
-        <ScrollButton onClick={scrollLeft}>
-          <FaChevronLeft />
-        </ScrollButton>
-        <List>
-          {days.map((day) => (
-            <Item key={day.datetime}>
-              <p>
-                {new Date(day.datetime).toLocaleDateString('en-US', {
-                  weekday: 'long',
-                })}
-              </p>
-              <WeatherImg weather={day.icon} />
-              <DayIcon>{day.icon}</DayIcon>
-              <p>
-                {day.tempmin}°C/{day.tempmax}°C
-              </p>
-            </Item>
-          ))}
-        </List>
-        <ScrollButton onClick={scrollRight}>
-          <FaChevronRight />
-        </ScrollButton>
-      </ScrollWrapper>
+      <div
+        style={{ position: 'relative', display: 'flex', alignItems: 'center' }}
+      >
+        <FaChevronLeftsvg onClick={scrollLeft} />
+        <ScrollWrapper>
+          <List>
+            {days.map((day) => (
+              <Item key={day.datetime}>
+                <p>
+                  {new Date(day.datetime).toLocaleDateString('en-US', {
+                    weekday: 'long',
+                  })}
+                </p>
+                <WeatherImg weather={day.icon} />
+                <DayIcon>{day.icon}</DayIcon>
+                <p>
+                  {day.tempmin}°C/{day.tempmax}°C
+                </p>
+              </Item>
+            ))}
+          </List>
+        </ScrollWrapper>
+        <FaChevronRightsvg onClick={scrollRight} />
+      </div>
     </section>
   );
 };
