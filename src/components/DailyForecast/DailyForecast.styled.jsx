@@ -2,8 +2,9 @@ import styled from '@emotion/styled';
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 
 export const ScrollWrapper = styled.div`
-  overflow-x: auto;
-  white-space: nowrap;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+
   display: flex;
 
   border-radius: 8px;
@@ -42,6 +43,9 @@ export const DayIcon = styled.p`
 `;
 
 export const FaChevronRightsvg = styled(FaChevronRight)`
+  position: absolute;
+  right: 5px;
+
   opacity: 0.5;
   cursor: pointer;
 
@@ -51,6 +55,9 @@ export const FaChevronRightsvg = styled(FaChevronRight)`
 `;
 
 export const FaChevronLeftsvg = styled(FaChevronLeft)`
+  position: absolute;
+  left: 5px;
+
   opacity: 0.5;
   cursor: pointer;
 

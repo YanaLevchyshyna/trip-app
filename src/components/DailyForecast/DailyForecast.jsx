@@ -15,14 +15,14 @@ import {
 
 const DailyForecast = ({ weatherData }) => {
   const { days } = weatherData || {};
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentDay, setCurrentDay] = useState(0);
 
   const scrollLeft = () => {
-    setCurrentIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+    setCurrentDay((prevDay) => Math.max(prevDay - 1, 0));
   };
 
   const scrollRight = () => {
-    setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, days.length - 1));
+    setCurrentDay((prevDay) => Math.min(prevDay + 1, days.length - 1));
   };
 
   return (
