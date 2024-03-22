@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 // import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 
 import WeatherImg from '../WeatherImages/WeatherImages';
@@ -17,6 +17,9 @@ const DailyForecast = ({ weatherData }) => {
   const { days } = weatherData || {};
   const [currentDay, setCurrentDay] = useState(0);
 
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
   const scrollLeft = () => {
     setCurrentDay((prevDay) => Math.max(prevDay - 1, 0));
   };
@@ -32,9 +35,9 @@ const DailyForecast = ({ weatherData }) => {
         style={{ position: 'relative', display: 'flex', alignItems: 'center' }}
       >
         <FaChevronLeftsvg onClick={scrollLeft} />
-        <ScrollWrapper>
+        <ScrollWrapper scrollPosition={currentDay}>
           <List>
-            {days.map((day) => (
+            {days.map((day, index) => (
               <Item key={day.datetime}>
                 <p>
                   {new Date(day.datetime).toLocaleDateString('en-US', {
