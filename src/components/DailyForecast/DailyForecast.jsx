@@ -20,6 +20,8 @@ const DailyForecast = ({ weatherData }) => {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
 
+  const listRef = useRef(null);
+
   const scrollLeft = () => {
     setCurrentDay((prevDay) => Math.max(prevDay - 1, 0));
   };
