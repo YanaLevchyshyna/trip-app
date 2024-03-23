@@ -23,6 +23,15 @@ const DailyForecast = ({ weatherData }) => {
   const listRef = useRef(null);
   console.log('listRef', listRef);
 
+  const checkForScrollPosition = () => {
+    const { current } = listRef;
+    if (current) {
+      const { scrollLeft, scrollWidth, clientWidth } = current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft !== scrollWidth - clientWidth);
+    }
+  };
+
   const scrollLeft = () => {
     setCurrentDay((prevDay) => Math.max(prevDay - 1, 0));
   };
