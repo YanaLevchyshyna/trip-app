@@ -32,6 +32,20 @@ const DailyForecast = ({ weatherData }) => {
     }
   };
 
+  const scrollContainerBy = (distance) =>
+    listRef.current?.scrollBy({ left: distance, behavior: 'smooth' });
+
+  useEffect(() => {
+    const { current } = listRef;
+    checkForScrollPosition();
+    current?.addEventListener('scroll', checkForScrollPosition);
+
+    return () => {
+      current?.removeEventListener('scroll', checkForScrollPosition);
+      checkForScrollPosition.cancel();
+    };
+  }, []);
+
   const scrollLeft = () => {
     setCurrentDay((prevDay) => Math.max(prevDay - 1, 0));
   };
