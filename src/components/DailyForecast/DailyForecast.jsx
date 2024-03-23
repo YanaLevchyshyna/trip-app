@@ -21,6 +21,7 @@ const DailyForecast = ({ weatherData }) => {
   const [canScrollRight, setCanScrollRight] = useState(false);
 
   const listRef = useRef(null);
+  console.log('listRef', listRef);
 
   const scrollLeft = () => {
     setCurrentDay((prevDay) => Math.max(prevDay - 1, 0));
