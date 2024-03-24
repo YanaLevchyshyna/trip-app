@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState, useRef, useEffect } from 'react';
 import debounce from 'lodash.debounce';
-// import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 
 import WeatherImg from '../WeatherImages/WeatherImages';
 import {
@@ -10,6 +9,10 @@ import {
   List,
   Item,
   DayIcon,
+  LeftButton,
+  RightButton,
+  FaChevronLeftsvg,
+  FaChevronRightsvg,
 } from './DailyForecast.styled';
 
 const DailyForecast = ({ weatherData }) => {
@@ -74,20 +77,20 @@ const DailyForecast = ({ weatherData }) => {
               </Item>
             ))}
           </List>
-          <button
+          <LeftButton
             type="button"
             disabled={!canScrollLeft}
-            onClick={() => scrollContainerBy(-400)}
+            onClick={() => scrollContainerBy(-350)}
           >
-            ←
-          </button>
-          <button
+            <FaChevronLeftsvg />
+          </LeftButton>
+          <RightButton
             type="button"
             disabled={!canScrollRight}
-            onClick={() => scrollContainerBy(400)}
+            onClick={() => scrollContainerBy(350)}
           >
-            →
-          </button>
+            <FaChevronRightsvg />
+          </RightButton>
         </ScrollWrapper>
       </div>
     </section>
