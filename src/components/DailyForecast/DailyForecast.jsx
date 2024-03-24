@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import debounce from 'lodash.debounce';
 // import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 
 import WeatherImg from '../WeatherImages/WeatherImages';
@@ -9,13 +10,11 @@ import {
   List,
   Item,
   DayIcon,
-  FaChevronRightsvg,
-  FaChevronLeftsvg,
 } from './DailyForecast.styled';
 
 const DailyForecast = ({ weatherData }) => {
   const { days } = weatherData || {};
-  const [currentDay, setCurrentDay] = useState(0);
+  // const [currentDay, setCurrentDay] = useState(0);
 
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -27,10 +26,16 @@ const DailyForecast = ({ weatherData }) => {
     const { current } = listRef;
     if (current) {
       const { scrollLeft, scrollWidth, clientWidth } = current;
+      console.log('scrollLeft', scrollLeft);
+      console.log('scrollWidth', scrollWidth);
+      console.log('clientWidth', clientWidth);
+
       setCanScrollLeft(scrollLeft > 0);
       setCanScrollRight(scrollLeft !== scrollWidth - clientWidth);
     }
   };
+
+  const debounceCheckForScrollPosition = debounce(checkForScrollPosition, 200);
 
   const scrollContainerBy = (distance) =>
     listRef.current?.scrollBy({ left: distance, behavior: 'smooth' });
@@ -38,21 +43,13 @@ const DailyForecast = ({ weatherData }) => {
   useEffect(() => {
     const { current } = listRef;
     checkForScrollPosition();
-    current?.addEventListener('scroll', checkForScrollPosition);
+    current?.addEventListener('scroll', debounceCheckForScrollPosition);
 
     return () => {
-      current?.removeEventListener('scroll', checkForScrollPosition);
-      checkForScrollPosition.cancel();
+      current?.removeEventListener('scroll', debounceCheckForScrollPosition);
+      debounceCheckForScrollPosition.cancel();
     };
   }, []);
-
-  const scrollLeft = () => {
-    setCurrentDay((prevDay) => Math.max(prevDay - 1, 0));
-  };
-
-  const scrollRight = () => {
-    setCurrentDay((prevDay) => Math.min(prevDay + 1, days.length - 1));
-  };
 
   return (
     <section>
@@ -60,10 +57,9 @@ const DailyForecast = ({ weatherData }) => {
       <div
         style={{ position: 'relative', display: 'flex', alignItems: 'center' }}
       >
-        <FaChevronLeftsvg onClick={scrollLeft} />
-        <ScrollWrapper scrollPosition={currentDay}>
-          <List>
-            {days.map((day, index) => (
+        <ScrollWrapper>
+          <List ref={listRef}>
+            {days.map((day) => (
               <Item key={day.datetime}>
                 <p>
                   {new Date(day.datetime).toLocaleDateString('en-US', {
@@ -78,8 +74,21 @@ const DailyForecast = ({ weatherData }) => {
               </Item>
             ))}
           </List>
+          <button
+            type="button"
+            disabled={!canScrollLeft}
+            onClick={() => scrollContainerBy(-400)}
+          >
+            ←
+          </button>
+          <button
+            type="button"
+            disabled={!canScrollRight}
+            onClick={() => scrollContainerBy(400)}
+          >
+            →
+          </button>
         </ScrollWrapper>
-        <FaChevronRightsvg onClick={scrollRight} />
       </div>
     </section>
   );

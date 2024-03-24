@@ -65,3 +65,6 @@ export const FaChevronLeftsvg = styled(FaChevronLeft)`
     opacity: 1;
   }
 `;
+
+export const LeftButton = styled.button``;
+export const RightButton = styled.button``;
