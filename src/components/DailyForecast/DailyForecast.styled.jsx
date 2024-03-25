@@ -71,6 +71,10 @@ const Button = styled.button`
   box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
   cursor: pointer;
   z-index: 2;
+
+  :hover {
+    opacity: 1;
+  }
 `;
 
 export const LeftButton = styled(Button)`
