@@ -64,10 +64,11 @@ const Button = styled.button`
   width: 36px;
   height: 36px;
 
+  opacity: 0.5;
+
   border-radius: 50%;
   border: none;
   box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
-  font-size: 1.2rem;
   cursor: pointer;
   z-index: 2;
 `;
