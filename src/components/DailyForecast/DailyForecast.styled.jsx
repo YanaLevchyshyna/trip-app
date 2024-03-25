@@ -60,10 +60,10 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: 36px;
   height: 36px;
 
+  background-color: #c5c7d2;
   opacity: 0.5;
 
   border-radius: 50%;
